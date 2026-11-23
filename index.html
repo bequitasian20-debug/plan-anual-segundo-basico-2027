@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pizarra Digital - Plan Anual Expresión Artística 2027</title>
+    <!-- Tailwind CSS desde CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f4f6f9;
+            color: #333333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Paleta Oficial Colegio Montano */
+        .bg-montano-principal { background-color: #1F3C88; }
+        .bg-montano-secundario { background-color: #3F72AF; }
+        .bg-montano-acento { background-color: #F2C94C; }
+        .text-montano-principal { color: #1F3C88; }
+        .text-montano-secundario { color: #3F72AF; }
+        .border-montano-principal { border-color: #1F3C88; }
+        .border-montano-secundario { border-color: #3F72AF; }
+        .border-montano-acento { border-color: #F2C94C; }
+
+        /* Pestañas */
+        .tab-btn {
+            background-color: #3F72AF;
+            color: #FFFFFF;
+            transition: all 0.3s ease;
+            font-style: italic;
+        }
+
+        .tab-btn:hover {
+            background-color: #2c527e;
+        }
+
+        .tab-btn.active {
+            background-color: #F2C94C !important;
+            color: #1F3C88 !important;
+            font-weight: 700;
+            border-bottom: 4px solid #1F3C88;
+        }
+
+        /* Paneles */
+        .tab-panel {
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Tarjetas */
+        .card-cm {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #1F3C88;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .card-cm-secondary {
+            background-color: #FFFFFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid #3F72AF;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .footer-bar {
+            background-color: #1F3C88;
+            color: #FFFFFF;
+            text-align: center;
+            padding: 12px;
+            font-size: 0.875rem;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+
+    <!-- BARRA SUPERIOR E ENCABEZADO INSTITUCIONAL -->
+    <header class="bg-montano-principal text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Logo e Identificación -->
+            <div class="flex items-center space-x-4">
+                <img src="https://admisiones.colegiomontano.edu.gt/assets/img/logo-cm-blanco.webp" 
+                     alt="Logo Colegio Montano" 
+                     class="h-12 object-contain"
+                     onerror="this.onerror=null; this.src='https://placehold.co/180x50/1F3C88/FFFFFF?text=Colegio+Montano';">
+                <div>
+                    <h1 class="text-xl md:text-2xl font-bold text-white tracking-wide"><i>Plan Anual Interactivo - Pizarra Digital</i></h1>
+                    <p class="text-xs md:text-sm text-yellow-300"><i>Colegio Montano Cortijo</i></p>
+                </div>
+            </div>
+
+            <!-- Datos Identificadores del Curso -->
+            <div class="flex flex-wrap items-center gap-3 bg-blue-900 bg-opacity-60 px-4 py-2 rounded-lg border border-blue-700 text-xs md:text-sm">
+                <div><span class="font-semibold text-yellow-400"><i>Curso:</i></span> <i>Expresión Artística</i></div>
+                <div class="h-4 w-px bg-blue-400"></div>
+                <div><span class="font-semibold text-yellow-400"><i>Grado:</i></span> <i>Segundo Básico</i></div>
+                <div class="h-4 w-px bg-blue-400"></div>
+                <div><span class="font-semibold text-yellow-400"><i>Docente:</i></span> <i>Miss Rebeca Sian</i></div>
+                <div class="h-4 w-px bg-blue-400"></div>
+                <div><span class="font-semibold text-yellow-400"><i>Ciclo:</i></span> <i>2027</i></div>
+            </div>
+
+            <!-- Botón Pantalla Completa -->
+            <button onclick="toggleFullScreen()" 
+                    class="bg-montano-acento hover:bg-yellow-400 text-blue-950 font-bold px-4 py-2 rounded-lg shadow transition flex items-center gap-2 text-sm">
+                <span>🖥️</span> <i>Pantalla Completa</i>
+            </button>
+        </div>
+
+        <!-- NAVEGACIÓN POR PESTAÑAS HORIZONTALES (NUMERALES ROMANOS) -->
+        <nav class="bg-montano-secundario border-t border-blue-400 overflow-x-auto">
+            <div class="max-w-7xl mx-auto flex whitespace-nowrap px-2">
+                <button onclick="switchTab(0)" class="tab-btn active px-4 py-3 text-sm rounded-t-lg transition"><i>I) DESCRIPTOR</i></button>
+                <button onclick="switchTab(1)" class="tab-btn px-4 py-3 text-sm rounded-t-lg transition"><i>II) OBJETIVOS</i></button>
+                <button onclick="switchTab(2)" class="tab-btn px-4 py-3 text-sm rounded-t-lg transition"><i>III) COMPETENCIAS</i></button>
+                <button onclick="switchTab(3)" class="tab-btn px-4 py-3 text-sm rounded-t-lg transition"><i>IV) INDICADORES</i></button>
+                <button onclick="switchTab(4)" class="tab-btn px-4 py-3 text-sm rounded-t-lg transition"><i>V) MÉTODOS DIDÁCTICOS</i></button>
+                <button onclick="switchTab(5)" class="tab-btn px-4 py-3 text-sm rounded-t-lg transition"><i>VI) BIBLIOGRAFÍA</i></button>
+                <button onclick="switchTab(6)" class="tab-btn px-4 py-3 text-sm rounded-t-lg transition"><i>VII) CONTENIDOS</i></button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL DE LA PIZARRA DIGITAL -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- PESTAÑA I: DESCRIPTOR DEL CURSO -->
+        <section id="panel-0" class="tab-panel active">
+            <div class="card-cm">
+                <h2 class="text-xl font-bold text-montano-principal mb-3"><i>I) DESCRIPTOR DEL CURSO - EXPRESIÓN ARTÍSTICA (SEGUNDO BÁSICO)</i></h2>
+                <p class="text-gray-700 leading-relaxed mb-4">
+                    <i>El área de Educación Artística constituye el espacio para la incorporación de las artes a la educación. Los lenguajes artísticos propios de las artes visuales, la danza, la música y el teatro desarrollan destrezas y habilidades que fomentan hábitos, ejercitan la libertad, promueven la asimilación de valores y ayudan a la interiorización de actitudes indispensables para el desenvolvimiento individual y colectivo.</i>
+                </p>
+                <p class="text-gray-700 leading-relaxed">
+                    <i>El arte es una fuente inagotable para la estimulación de los procesos creativos que favorecen el aprendizaje significativo. En Segundo Básico, se profundiza en el análisis crítico, la comparación de formas dancísticas y dramáticas, promoviendo la creación personal y colectiva con un alto sentido de identidad cultural.</i>
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Subáreas Desarrolladas -->
+                <div class="card-cm-secondary">
+                    <h3 class="text-lg font-bold text-montano-secundario mb-2"><i>Subáreas y Lenguajes Artísticos</i></h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><i><b>Danza:</b> Arte del movimiento corporal. En Segundo Básico se profundiza en danzas rituales, ceremoniales, tradicionales, populares y de salón, ejecutando diseños simétricos y coreografías grupales.</i></li>
+                        <li><i><b>Teatro:</b> Práctica del hecho escénico basada en el método vivencial de Stanislavski, desarrollo de la memoria emotiva, fe escénica, géneros dramáticos (formas mayores y menores) y técnica vocal con uso del diafragma.</i></li>
+                    </ul>
+                </div>
+
+                <!-- Abordaje Triangular -->
+                <div class="card-cm-secondary">
+                    <h3 class="text-lg font-bold text-montano-secundario mb-2"><i>Abordaje Triangular Institucional</i></h3>
+                    <ul class="list-disc list-inside space-y-2 text-gray-700">
+                        <li><i><b>Producción:</b> Hacer artístico lúdico y creativo enfocado en el diseño coreográfico y la construcción de personajes teatrales.</i></li>
+                        <li><i><b>Apreciación:</b> Experimentación y comparación crítica de expresiones dancísticas y teatrales de sus compañeros y de diversas culturas.</i></li>
+                        <li><i><b>Contextualización:</b> Análisis de la danza y el teatro en diferentes momentos históricos, contextos sociales y manifestaciones regionales/mundiales.</i></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-cm mt-4">
+                <h3 class="text-lg font-bold text-montano-principal mb-2"><i>Valores e Identidad Institucional (Colegio Montano)</i></h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm text-gray-700">
+                    <div class="p-2 bg-gray-50 rounded border border-gray-200"><i>1. Libertad de decisión con responsabilidad.</i></div>
+                    <div class="p-2 bg-gray-50 rounded border border-gray-200"><i>2. Lealtad e identificación institucional.</i></div>
+                    <div class="p-2 bg-gray-50 rounded border border-gray-200"><i>3. Habilidades sociales y empatía en equipo.</i></div>
+                    <div class="p-2 bg-gray-50 rounded border border-gray-200"><i>4. Armonía y respeto intra-aula en los 4 momentos CM.</i></div>
+                    <div class="p-2 bg-gray-50 rounded border border-gray-200"><i>5. Tolerancia ante la pluriculturalidad del entorno.</i></div>
+                    <div class="p-2 bg-gray-50 rounded border border-gray-200"><i>6. Análisis, síntesis y capacidad argumentativa.</i></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA II: OBJETIVOS GENERALES -->
+        <section id="panel-1" class="tab-panel">
+            <div class="card-cm">
+                <h2 class="text-xl font-bold text-montano-principal mb-4"><i>II) OBJETIVOS GENERALES DEL CURSO</i></h2>
+                
+                <div class="space-y-4">
+                    <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-montano-principal">
+                        <h3 class="font-bold text-montano-principal"><i>1. Producción Artística</i></h3>
+                        <p class="text-gray-700 mt-1"><i>Producir obras artísticas a través de la danza y el teatro que representen su entorno social y diversidad cultural.</i></p>
+                    </div>
+
+                    <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-montano-secundario">
+                        <h3 class="font-bold text-montano-secundario"><i>2. Apreciación Estética</i></h3>
+                        <p class="text-gray-700 mt-1"><i>Apreciar el arte por medio de los lenguajes de danza y teatro estimulando el juicio crítico y la sensibilidad personal.</i></p>
+                    </div>
+
+                    <div class="p-4 bg-yellow-50 rounded-lg border-l-4 border-montano-acento">
+                        <h3 class="font-bold text-yellow-800"><i>3. Expresión y Contextualización</i></h3>
+                        <p class="text-gray-700 mt-1"><i>Transmitir la percepción de la realidad social y cultural a través de la escenificación y el movimiento creativo.</i></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA III: COMPETENCIAS -->
+        <section id="panel-2" class="tab-panel">
+            <div class="card-cm">
+                <h2 class="text-xl font-bold text-montano-principal mb-3"><i>III) COMPETENCIAS DEL CURSO</i></h2>
+                <p class="text-sm text-gray-600 mb-4"><i>Integración de competencias académicas del área y competencias institucionales del Colegio Montano.</i></p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Competencias Académicas del Área -->
+                <div class="card-cm">
+                    <h3 class="text-lg font-bold text-montano-principal mb-3"><i>Competencias Académicas del Área</i></h3>
+                    
+                    <div class="mb-4">
+                        <h4 class="font-semibold text-montano-secundario mb-1"><i>Danza:</i></h4>
+                        <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                            <li><i>Utiliza gestos y sus posibilidades de movimiento como lenguaje corporal expresivo.</i></li>
+                            <li><i>Experimenta movimientos con su cuerpo al realizar trabajos individuales o grupales de danza.</i></li>
+                            <li><i>Realiza actividades de baile que fortalecen la diversidad cultural.</i></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h4 class="font-semibold text-montano-secundario mb-1"><i>Teatro:</i></h4>
+                        <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                            <li><i>Utiliza los trece signos teatrales y los elementos básicos de actuación.</i></li>
+                            <li><i>Explora recursos corporales para recrear hechos escénicos por experimentación y descubrimiento.</i></li>
+                            <li><i>Analiza discursos desde la dramaturgia de diversos autores guatemaltecos.</i></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Competencias CM (Fijas Institucionales) -->
+                <div class="card-cm-secondary">
+                    <h3 class="text-lg font-bold text-montano-secundario mb-3"><i>Competencias CM (Institucionales)</i></h3>
+                    <ul class="grid grid-cols-1 gap-2 text-sm text-gray-700">
+                        <li class="p-2 bg-gray-50 rounded"><i>1. Pensamiento crítico y resolución de problemas.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>2. Colaboración y trabajo en equipo.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>3. Competencias digitales.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>4. Comunicación efectiva.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>5. Creatividad e innovación.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>6. Aprendizaje autónomo y adaptabilidad.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>7. Conciencia global y cultural.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>8. Ética y ciudadanía digital.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>9. Gestión emocional y resiliencia.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>10. Conciencia ecológica y sostenibilidad.</i></li>
+                        <li class="p-2 bg-gray-50 rounded"><i>11. Desempeño de roles de liderazgo.</i></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA IV: INDICADORES DE LOGRO -->
+        <section id="panel-3" class="tab-panel">
+            <div class="card-cm">
+                <h2 class="text-xl font-bold text-montano-principal mb-4"><i>IV) INDICADORES DE LOGRO (SEGUNDO BÁSICO)</i></h2>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Indicadores de Teatro -->
+                    <div class="card-cm-secondary">
+                        <h3 class="text-lg font-bold text-montano-secundario mb-3"><i>Subárea de Teatro</i></h3>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="border-b pb-2"><i>1.1. Proyecta sus estados emocionales utilizando la observación, reconocimiento, control y recreación.</i></li>
+                            <li class="border-b pb-2"><i>1.2. Realiza representaciones de personajes y escenas.</i></li>
+                            <li class="border-b pb-2"><i>1.3. Teatraliza a partir de situaciones de la vida diaria.</i></li>
+                            <li class="border-b pb-2"><i>2.1. Identifica las características de las diferentes divisiones y subdivisiones del género dramático y del hecho dramático.</i></li>
+                            <li class="border-b pb-2"><i>2.2. Define los diferentes roles que se desarrollan en el ambiente teatral.</i></li>
+                            <li><i>2.3. Utiliza el aparato fonador en la construcción de personajes según el género dramático: formas mayores y menores.</i></li>
+                        </ul>
+                    </div>
+
+                    <!-- Indicadores de Danza -->
+                    <div class="card-cm-secondary">
+                        <h3 class="text-lg font-bold text-montano-secundario mb-3"><i>Subárea de Danza</i></h3>
+                        <ul class="space-y-3 text-sm text-gray-700">
+                            <li class="border-b pb-2"><i>1.1. Baila piezas de danza de creación personal y grupal.</i></li>
+                            <li class="border-b pb-2"><i>1.2. Ejecuta movimientos en grupo promoviendo el trabajo en equipo.</i></li>
+                            <li class="border-b pb-2"><i>1.3. Representa trabajos dancísticos creativos en grupo.</i></li>
+                            <li class="border-b pb-2"><i>2.1. Aprecia las danzas realizadas por sus compañeros.</i></li>
+                            <li class="border-b pb-2"><i>2.2. Compara diferentes danzas de los pueblos bailadas individual o grupalmente.</i></li>
+                            <li class="border-b pb-2"><i>2.3. Identifica el ritmo, música y danza en las presentaciones de sus compañeros en el aula.</i></li>
+                            <li class="border-b pb-2"><i>3.1. Analiza sus bailes y los de otros, con respeto a sus ideas e intereses.</i></li>
+                            <li class="border-b pb-2"><i>3.2. Aplica sus conocimientos de ritmo, música y danza en la creación de proyectos de aula.</i></li>
+                            <li><i>3.3. Emite criterios de los diseños coreográficos pertenecientes a diferentes estilos de géneros dancísticos de su entorno y de otras culturas.</i></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA V: MÉTODOS DIDÁCTICOS -->
+        <section id="panel-4" class="tab-panel">
+            <div class="card-cm">
+                <h2 class="text-xl font-bold text-montano-principal mb-3"><i>V) MÉTODOS DIDÁCTICOS (CONTENIDO FIJO INSTITUCIONAL)</i></h2>
+                <p class="text-sm text-gray-600 mb-4"><i>Modelo Activo-Colaborativo y Estructura del Período Doble (70 minutos).</i></p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Momento 1 -->
+                    <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-montano-principal">
+                        <span class="text-xs font-bold text-montano-principal uppercase"><i>Momento 1</i></span>
+                        <h3 class="font-bold text-montano-principal"><i>Introducción Motivante</i></h3>
+                        <p class="text-xs text-gray-600 mt-1"><i>Activación de presaberes, dinamización, lluvias de ideas, cantos y juegos diagnósticos.</i></p>
+                    </div>
+
+                    <!-- Momento 2 -->
+                    <div class="p-4 bg-blue-50 rounded-lg border-l-4 border-montano-secundario">
+                        <span class="text-xs font-bold text-montano-secundario uppercase"><i>Momento 2</i></span>
+                        <h3 class="font-bold text-montano-secundario"><i>Trabajo Individual</i></h3>
+                        <p class="text-xs text-gray-600 mt-1"><i>Desarrollo de potencialidades, habilidades y destrezas con trifolios, proyectos y estudio dirigido.</i></p>
+                    </div>
+
+                    <!-- Momento 3 -->
+                    <div class="p-4 bg-yellow-50 rounded-lg border-l-4 border-montano-acento">
+                        <span class="text-xs font-bold text-yellow-800 uppercase"><i>Momento 3</i></span>
+                        <h3 class="font-bold text-yellow-800"><i>Trabajo en Equipo (Cooperativo)</i></h3>
+                        <p class="text-xs text-gray-600 mt-1"><i>Interacción con roles definidos bajo la consigna: "Todos para uno y uno para todos".</i></p>
+                    </div>
+
+                    <!-- Momento 4 -->
+                    <div class="p-4 bg-green-50 rounded-lg border-l-4 border-green-600">
+                        <span class="text-xs font-bold text-green-700 uppercase"><i>Momento 4</i></span>
+                        <h3 class="font-bold text-green-800"><i>Plenaria y Exposición</i></h3>
+                        <p class="text-xs text-gray-600 mt-1"><i>Exposición pública rotativa, diálogo socrático y presentación de conclusiones colectivas.</i></p>
+                    </div>
+                </div>
+
+                <!-- Metodologías Clave -->
+                <div class="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                    <h3 class="font-bold text-montano-principal mb-2"><i>Metodologías Clave y Evaluación</i></h3>
+                    <p class="text-sm text-gray-700 mb-2"><i><b>Aprendizaje Basado en Proyectos (ABP) y Constructivismo:</b> Los alumnos construyen su propio aprendizaje significativo mediante herramientas activas.</i></p>
+                    <p class="text-sm text-gray-700"><i><b>Evaluación Formativa y Sumativa:</b> Acompañamiento observacional continuo organizado en tareas, ejercicios cortos, tarea integrada y proyecto final.</i></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA VI: BIBLIOGRAFÍA -->
+        <section id="panel-5" class="tab-panel">
+            <div class="card-cm">
+                <h2 class="text-xl font-bold text-montano-principal mb-4"><i>VI) BIBLIOGRAFÍA Y FUENTES DE REFERENCIA</i></h2>
+                
+                <div class="space-y-3 text-gray-700 text-sm">
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <p><i>1. Currículum Nacional Base (CNB) - Área de Educación Artística, Nivel Básico, Ministerio de Educación de Guatemala.</i></p>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <p><i>2. Guía Pedagógica Institucional y Programa de Valores del Colegio Montano Cortijo.</i></p>
+                    </div>
+                    <div class="p-3 bg-gray-50 rounded-lg border border-gray-200">
+                        <p><i>3. Textos y manuales de expresión corporal, técnica vocal y dramaturgia guatemalteca.</i></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PESTAÑA VII: CONTENIDOS POR UNIDADES -->
+        <section id="panel-6" class="tab-panel">
+            <div class="card-cm">
+                <h2 class="text-xl font-bold text-montano-principal mb-3"><i>VII) CONTENIDOS PROGRAMÁTICOS ANUALES (SEGUNDO BÁSICO)</i></h2>
+                <p class="text-sm text-gray-600 mb-4"><i>Secuencia temática desglosada en 2 Unidades.</i></p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- UNIDAD I: DANZA -->
+                <div class="card-cm">
+                    <div class="bg-montano-principal text-white px-4 py-2 rounded-t-lg -mx-5 -mt-5 mb-4">
+                        <h3 class="font-bold"><i>UNIDAD I: DANZA Y MOVIMIENTO CREATIVO</i></h3>
+                    </div>
+                    <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1 max-h-96 overflow-y-auto pr-2">
+                        <li><i>Conexión con el otro.</i></li>
+                        <li><i>Danza individual.</i></li>
+                        <li><i>Danza en parejas.</i></li>
+                        <li><i>Conexión con los otros.</i></li>
+                        <li><i>Danza en grupos.</i></li>
+                        <li><i>Coreografías básicas.</i></li>
+                        <li><i>Conexión con el grupo.</i></li>
+                        <li><i>Diseño de secuencias de movimiento.</i></li>
+                        <li><i>Diseños simétricos.</i></li>
+                        <li><i>La danza en la cultura como actividad humana.</i></li>
+                        <li><i>La danza en diferentes momentos históricos.</i></li>
+                        <li><i>La danza en diferentes contextos.</i></li>
+                        <li><i>Danzas rituales.</i></li>
+                        <li><i>Danzas ceremoniales.</i></li>
+                        <li><i>Danzas tradicionales.</i></li>
+                        <li><i>Coordinación ritmo y música.</i></li>
+                        <li><i>Movimientos individuales.</i></li>
+                        <li><i>Movimientos grupales.</i></li>
+                        <li><i>Estilo de danza.</i></li>
+                        <li><i>Danzas populares.</i></li>
+                        <li><i>Danzas de salón.</i></li>
+                        <li><i>Tipos de ritmo.</i></li>
+                        <li><i>Tipos de música.</i></li>
+                        <li><i>Conexiones ritmo-música-danza.</i></li>
+                        <li><i>Diseños coreográficos de las danzas de los pueblos guatemaltecos.</i></li>
+                        <li><i>Diseños coreográficos de las danzas latinoamericanas.</i></li>
+                        <li><i>Diseños coreográficos de las danzas del mundo.</i></li>
+                    </ol>
+                </div>
+
+                <!-- UNIDAD II: TEATRO -->
+                <div class="card-cm-secondary">
+                    <div class="bg-montano-secundario text-white px-4 py-2 rounded-t-lg -mx-5 -mt-5 mb-4">
+                        <h3 class="font-bold"><i>UNIDAD II: TEATRO Y ARTE DRAMÁTICO</i></h3>
+                    </div>
+                    <ol class="list-decimal list-inside text-xs text-gray-700 space-y-1 max-h-96 overflow-y-auto pr-2">
+                        <li><i>Método vivencial (principios) Stanislavski.</i></li>
+                        <li><i>Concentración.</i></li>
+                        <li><i>Sentido de la verdad.</i></li>
+                        <li><i>Circunstancias dadas.</i></li>
+                        <li><i>Sí mágico.</i></li>
+                        <li><i>Memoria emotiva.</i></li>
+                        <li><i>Fe escénica.</i></li>
+                        <li><i>Nivel de actuación: el personaje.</i></li>
+                        <li><i>Construcción de personajes.</i></li>
+                        <li><i>Creación de escenas a partir de los personajes construidos.</i></li>
+                        <li><i>Género y hecho dramáticos.</i></li>
+                        <li><i>Formas mayores: tragedia, comedia y drama.</i></li>
+                        <li><i>Formas menores: comedia musical, entremés, monólogo.</i></li>
+                        <li><i>Roles de actor y actriz.</i></li>
+                        <li><i>Director de escena y director de actores.</i></li>
+                        <li><i>Roles técnicos: escenógrafo, utilero, tramoyista, luminotécnico, regidor de escena.</i></li>
+                        <li><i>Productor.</i></li>
+                        <li><i>Dramaturgo.</i></li>
+                        <li><i>Resonadores y uso de los resonadores.</i></li>
+                        <li><i>Uso del diafragma.</i></li>
+                        <li><i>Proyección de la voz.</i></li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="footer-bar">
+        <i>Colegio Montano &copy; 2027 - Sistema Institucional de Planificación Académica por Pizarra Digital</i>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT GLOBAL -->
+    <script>
+        function switchTab(tabIndex) {
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panels = document.querySelectorAll('.tab-panel');
+
+            tabs.forEach(tab => tab.classList.remove('active'));
+            panels.forEach(panel => panel.classList.remove('active'));
+
+            if (tabs[tabIndex] && panels[tabIndex]) {
+                tabs[tabIndex].classList.add('active');
+                panels[tabIndex].classList.add('active');
+            }
+        }
+
+        function toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.log(`Error al activar pantalla completa: ${err.message}`);
+                });
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                }
+            }
+        }
+    </script>
+</body>
+</html>
